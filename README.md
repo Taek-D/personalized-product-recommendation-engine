@@ -54,6 +54,20 @@ MovieLens 100K를 선택한 이유:
 - Switching Hybrid: sparse profile user에 content fallback
 - cold-start 단계에서 popularity -> content -> hybrid 전환 시뮬레이션
 
+## Visualizations
+
+### 모델 비교 대시보드
+![Model Comparison Dashboard](artifacts/figures/day4_model_comparison_dashboard.png)
+
+### Hybrid Alpha Grid Search
+![Hybrid Grid Search](artifacts/figures/day4_hybrid_grid.png)
+
+### Precision vs Coverage Trade-off
+![Model Tradeoff](artifacts/figures/day4_model_tradeoff.png)
+
+### Cold-Start 온보딩 시뮬레이션
+![Cold-Start Transition](artifacts/figures/day5_cold_start_transition.png)
+
 ## Key Results
 
 ### 최종 모델 비교

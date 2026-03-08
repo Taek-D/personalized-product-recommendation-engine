@@ -114,7 +114,7 @@ def _build_new_item_strategy(model_metrics: pd.DataFrame) -> pd.DataFrame:
 
 @lru_cache(maxsize=1)
 def load_demo_assets() -> DemoAssets:
-    bundle = load_bundle(download_if_missing=False)
+    bundle = load_bundle(download_if_missing=True)
     train_df, test_df = random_train_test_split(bundle.ratings, test_size=0.2, random_state=RANDOM_SEED)
     relevant_items = build_relevance_sets(test_df, min_rating=HIGH_RATING_THRESHOLD)
     items = bundle.items.copy()
