@@ -29,6 +29,10 @@ MovieLens 100K를 선택한 이유:
 - 로컬 환경에서 빠르게 재현 가능하면서도 CF와 CB의 trade-off가 분명하게 드러납니다.
 - 영화 메타데이터가 있어 cold-start item 대응까지 같이 설명하기 좋습니다.
 
+## Tech Stack
+
+`Python` · `pandas` · `NumPy` · `scikit-learn` · `SciPy` · `scikit-surprise` · `implicit` · `Matplotlib` · `Plotly` · `Streamlit`
+
 ## Approach
 
 ### 1. Collaborative Filtering
@@ -154,41 +158,92 @@ uv pip install --python .uv311\Scripts\python.exe -r requirements.txt -r require
 ### 노트북 실행 검증
 
 ```bash
-.uv311\Scripts\python.exe -m nbconvert --to notebook --execute --ExecutePreprocessor.timeout=1200 --output 02_collaborative_filtering.executed.ipynb notebooks\02_collaborative_filtering.ipynb
-.uv311\Scripts\python.exe -m nbconvert --to notebook --execute --ExecutePreprocessor.timeout=1200 --output 03_content_based.executed.ipynb notebooks\03_content_based.ipynb
-.uv311\Scripts\python.exe -m nbconvert --to notebook --execute --ExecutePreprocessor.timeout=1200 --output 06_cold_start.executed.ipynb notebooks\06_cold_start.ipynb
+.uv311\Scripts\jupyter-nbconvert.exe --to notebook --execute --ExecutePreprocessor.timeout=1200 --output 01_eda.executed.ipynb notebooks\01_eda.ipynb
+.uv311\Scripts\jupyter-nbconvert.exe --to notebook --execute --ExecutePreprocessor.timeout=1200 --output 02_collaborative_filtering.executed.ipynb notebooks\02_collaborative_filtering.ipynb
+.uv311\Scripts\jupyter-nbconvert.exe --to notebook --execute --ExecutePreprocessor.timeout=1200 --output 03_content_based.executed.ipynb notebooks\03_content_based.ipynb
+.uv311\Scripts\jupyter-nbconvert.exe --to notebook --execute --ExecutePreprocessor.timeout=600 --output 04_hybrid.executed.ipynb notebooks\04_hybrid.ipynb
+.uv311\Scripts\jupyter-nbconvert.exe --to notebook --execute --ExecutePreprocessor.timeout=600 --output 05_model_comparison.executed.ipynb notebooks\05_model_comparison.ipynb
+.uv311\Scripts\jupyter-nbconvert.exe --to notebook --execute --ExecutePreprocessor.timeout=1200 --output 06_cold_start.executed.ipynb notebooks\06_cold_start.ipynb
 ```
+
+6개 노트북 모두 executed 버전(`.executed.ipynb`)이 포함되어 있어 셀 출력을 바로 확인할 수 있습니다.
 
 ## Repository Structure
 
 ```text
 .
-├── app.py
+├── app.py                          # Streamlit 메인 앱 (6개 탭)
 ├── pages/
+│   ├── 1_methodology.py            # 방법론 상세 페이지
+│   └── 2_portfolio_summary.py      # 포트폴리오 요약 페이지
 ├── notebooks/
+│   ├── 01_eda.ipynb                # Day 1: 데이터 탐색 + 전처리
+│   ├── 02_collaborative_filtering.ipynb  # Day 2: CF (User/Item-CF, SVD, ALS)
+│   ├── 03_content_based.ipynb      # Day 3: Content-Based (TF-IDF, 장르)
+│   ├── 04_hybrid.ipynb             # Day 4: Hybrid (Weighted, Switching)
+│   ├── 05_model_comparison.ipynb   # Day 4: 전체 모델 비교
+│   ├── 06_cold_start.ipynb         # Day 5: Cold-Start 시뮬레이션
+│   └── *.executed.ipynb            # 실행 결과 포함 버전 (6개)
 ├── src/
+│   ├── models/
+│   │   ├── baseline.py             # 인기도 / 평균 기반 베이스라인
+│   │   ├── collaborative.py        # User-CF, Item-CF, SVD, NMF, ALS
+│   │   └── hybrid.py               # Weighted / Switching Hybrid
+│   ├── evaluation/
+│   │   ├── metrics.py              # Precision, Recall, NDCG, MAP, Coverage, Diversity
+│   │   └── cold_start.py           # Cold-start 시뮬레이션 로직
+│   ├── features/
+│   │   └── content_based.py        # 장르 one-hot, TF-IDF, 유저 프로필
+│   ├── data/
+│   │   └── movielens.py            # MovieLens 100K 로드 / 다운로드
+│   ├── app/
+│   │   └── demo_data.py            # Streamlit 앱용 데모 데이터
+│   └── config.py                   # 프로젝트 설정
+├── scripts/
+│   ├── generate_day2_artifacts.py  # Day 2 CF 산출물 일괄 생성
+│   ├── generate_day5_artifacts.py  # Day 5 Cold-start 산출물 생성
+│   └── smoke_test.py              # 전체 파이프라인 스모크 테스트
 ├── artifacts/
+│   ├── figures/                    # 시각화 PNG (4개)
+│   └── metrics/                    # 평가 결과 CSV/JSON (20개)
 ├── data/
-├── README.md
-├── ab_test_design.md
-├── portfolio_summary.md
-├── requirements.txt
-└── task.md
+│   ├── raw/                        # MovieLens 원본 (.gitignore)
+│   └── processed/                  # 전처리 결과 (.gitignore)
+├── ab_test_design.md               # A/B 테스트 설계 문서
+├── portfolio_summary.md            # 포트폴리오 요약
+├── requirements.txt                # 핵심 패키지
+├── requirements-optional.txt       # scikit-surprise, implicit (Python 3.11)
+└── task.md                         # 프로젝트 계획서
 ```
 
 ## Main Artifacts
 
-- `notebooks/01_eda.ipynb`
-- `notebooks/02_collaborative_filtering.ipynb`
-- `notebooks/03_content_based.ipynb`
-- `notebooks/04_hybrid.ipynb`
-- `notebooks/05_model_comparison.ipynb`
-- `notebooks/06_cold_start.ipynb`
-- `artifacts/metrics/day2_collaborative_filtering_results.csv`
-- `artifacts/metrics/day5_cold_start_transition.csv`
-- `artifacts/figures/day4_model_comparison_dashboard.png`
-- `artifacts/figures/day5_cold_start_transition.png`
-- `ab_test_design.md`
+### Notebooks (6개, 모두 executed 버전 포함)
+
+| Notebook | Day | 내용 |
+|---|---|---|
+| `01_eda` | 1 | 평점 분포, 희소성 93.7%, Long-tail, 시간 트렌드, 베이스라인 |
+| `02_collaborative_filtering` | 2 | User-CF, Item-CF, SVD, SVD++, NMF, ALS 비교 |
+| `03_content_based` | 3 | 장르 one-hot, TF-IDF, 유저 프로필, 다양성 분석 |
+| `04_hybrid` | 4 | Weighted / Switching Hybrid, alpha 그리드 서치 |
+| `05_model_comparison` | 4 | 전체 모델 최종 비교표, 시나리오별 최적 모델 |
+| `06_cold_start` | 5 | 신규 유저 온보딩 시뮬레이션, 전환 시점 분석 |
+
+### Figures
+
+- `day4_model_comparison_dashboard.png` — 전체 모델 성능 대시보드
+- `day4_hybrid_grid.png` — Hybrid alpha 그리드 서치 결과
+- `day4_model_tradeoff.png` — Precision vs Coverage 트레이드오프
+- `day5_cold_start_transition.png` — Cold-start 온보딩 단계별 성능 변화
+
+### Key Metrics (CSV/JSON 20개)
+
+- `day1_overview.json` — 데이터셋 기본 통계
+- `day2_collaborative_filtering_results.csv` — CF 모델 전체 비교
+- `day3_content_based_results.csv` — CB 모델 결과
+- `day4_model_comparison.csv` — 최종 모델 비교표
+- `day5_cold_start_transition.csv` — 온보딩 시뮬레이션 결과
+- `ab_test_design.md` — A/B 테스트 설계 (가설, 샘플 사이즈, Power Analysis)
 
 ## Portfolio Summary
 
