@@ -1,0 +1,6 @@
+scenario,recommended_model,reason
+overall_default_ranker,weighted_hybrid_alpha_0.85,Precision@10 / NDCG@10이 가장 높음
+catalog_exploration,content_tfidf_metadata,Coverage가 가장 높아 cold item 노출 여지가 큼
+highest_diversity,popularity_baseline,Intra-list Diversity가 가장 높음
+warm_user_segment,cf_user_pearson_k40,warm_user 구간 Precision@10 기준 최상위
+power_user_segment,weighted_hybrid_alpha_0.85,power_user 구간 Precision@10 기준 최상위

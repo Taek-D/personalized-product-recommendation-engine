@@ -1,0 +1,78 @@
+{
+  "best_weighted_alpha": 0.85,
+  "best_switching_threshold": 15,
+  "switching_precision_tolerance": 0.002,
+  "cf_reference_metrics": {
+    "users_evaluated": 926.0,
+    "precision@10": 0.2479481641468674,
+    "recall@10": 0.2780266681810718,
+    "ndcg@10": 0.35336273828525766,
+    "map@10": 0.22652760483242962,
+    "coverage": 0.17191283292978207
+  },
+  "content_reference_metrics": {
+    "users_evaluated": 926.0,
+    "precision@10": 0.01663066954643625,
+    "recall@10": 0.020694743816015427,
+    "ndcg@10": 0.023895102597773908,
+    "map@10": 0.010534285828562277,
+    "coverage": 0.3662227602905569
+  },
+  "selected_models": [
+    {
+      "users_evaluated": 926.0,
+      "precision@10": 0.24967602591792587,
+      "recall@10": 0.27927458320558146,
+      "ndcg@10": 0.3570566983203037,
+      "map@10": 0.23061530162620983,
+      "intra_list_diversity": 0.5944888656997428,
+      "coverage": 0.18099273607748184,
+      "model_name": "weighted_hybrid_alpha_0.85",
+      "cold_start_item_share": 0.0
+    },
+    {
+      "users_evaluated": 926.0,
+      "precision@10": 0.2479481641468674,
+      "recall@10": 0.2780266681810718,
+      "ndcg@10": 0.35336273828525766,
+      "map@10": 0.22652760483242962,
+      "intra_list_diversity": 0.6201338628907546,
+      "coverage": 0.17191283292978207,
+      "model_name": "cf_user_pearson_k40",
+      "cold_start_item_share": 0.0
+    },
+    {
+      "users_evaluated": 926.0,
+      "precision@10": 0.24719222462202944,
+      "recall@10": 0.27623581144961046,
+      "ndcg@10": 0.35180434749746853,
+      "map@10": 0.22571546980323198,
+      "intra_list_diversity": 0.6160172022883276,
+      "coverage": 0.2112590799031477,
+      "model_name": "switching_hybrid_lt_15",
+      "cold_start_item_share": 0.0014038876889848812
+    },
+    {
+      "users_evaluated": 926.0,
+      "precision@10": 0.1346652267818572,
+      "recall@10": 0.14031106779635175,
+      "ndcg@10": 0.17551489724913244,
+      "map@10": 0.09063174997020655,
+      "intra_list_diversity": 0.6326578753000714,
+      "coverage": 0.029055690072639227,
+      "model_name": "popularity_baseline",
+      "cold_start_item_share": 0.0
+    },
+    {
+      "users_evaluated": 926.0,
+      "precision@10": 0.01663066954643625,
+      "recall@10": 0.020694743816015427,
+      "ndcg@10": 0.023895102597773908,
+      "map@10": 0.010534285828562277,
+      "intra_list_diversity": 0.09473569922315063,
+      "coverage": 0.3662227602905569,
+      "model_name": "content_tfidf_metadata",
+      "cold_start_item_share": 0.23002159827213822
+    }
+  ]
+}

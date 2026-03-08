@@ -1,0 +1,5 @@
+model_name,precision@10,coverage,cold_start_item_share,recommended_stage
+content_tfidf_metadata,0.017170626349892,0.3686440677966102,0.2286177105831533,metadata-only launch
+switching_hybrid_lt_15,0.2473002159827214,0.2094430992736077,0.0014038876889848,early traction
+weighted_hybrid_alpha_0.85,0.2496760259179265,0.1809927360774818,0.0,steady state
+popularity_baseline,0.1346652267818574,0.0290556900726392,0.0,fallback baseline

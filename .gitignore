@@ -16,11 +16,10 @@ __pycache__/
 /data/processed/*
 !/data/processed/.gitkeep
 
-# Output artifacts
+# Output artifacts (figures gitignored, metrics tracked for Streamlit Cloud)
 /artifacts/figures/*
 !/artifacts/figures/.gitkeep
-/artifacts/metrics/*
-!/artifacts/metrics/.gitkeep
+!/artifacts/figures/*.png
 
 # Streamlit / local app state
 .streamlit/

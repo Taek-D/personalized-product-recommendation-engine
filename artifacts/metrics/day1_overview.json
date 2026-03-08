@@ -1,0 +1,17 @@
+{
+  "dataset_overview": {
+    "n_ratings": 100000,
+    "n_users": 943,
+    "n_items": 1682,
+    "rating_mean": 3.52986,
+    "rating_median": 4.0,
+    "sparsity": 0.9369533063577546
+  },
+  "baseline_summary": {
+    "global_mean_rating": 3.5295875,
+    "n_users": 943,
+    "n_items": 1652,
+    "most_popular_item_id": 50,
+    "most_popular_item_interactions": 463
+  }
+}

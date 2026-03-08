@@ -1,0 +1,14 @@
+{
+  "best_precision_stage": {
+    "observed_ratings": 15,
+    "stage": "hybrid",
+    "users_evaluated": 199.0,
+    "precision@10": 0.32663316582914587,
+    "recall@10": 0.12078422698580882,
+    "ndcg@10": 0.369016307628075,
+    "map@10": 0.24161024636916004,
+    "coverage": 0.1807372175980975
+  },
+  "recommended_cf_switch_threshold": 5,
+  "recommended_hybrid_threshold_for_precision_recovery": 15
+}

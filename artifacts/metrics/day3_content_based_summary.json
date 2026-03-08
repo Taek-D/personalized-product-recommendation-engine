@@ -1,0 +1,27 @@
+{
+  "content_based": {
+    "users_evaluated": 926.0,
+    "precision@10": 0.014794816414686825,
+    "recall@10": 0.014644818194529594,
+    "ndcg@10": 0.01905502951212199,
+    "map@10": 0.007341669809272401,
+    "intra_list_diversity": 0.056845735111188615,
+    "coverage": 0.5732445520581114,
+    "model_name": "content_based_genre_decade"
+  },
+  "popularity_baseline": {
+    "users_evaluated": 926.0,
+    "precision@10": 0.13466522678185747,
+    "recall@10": 0.1403110677963514,
+    "ndcg@10": 0.17551489724913208,
+    "map@10": 0.09063174997020647,
+    "intra_list_diversity": 0.6326578753000712,
+    "coverage": 0.029055690072639227,
+    "model_name": "popularity_baseline"
+  },
+  "item_feature_shape": [
+    1682,
+    28
+  ],
+  "user_profile_count": 942
+}
