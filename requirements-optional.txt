@@ -1,0 +1,4 @@
+# Optional recommender libraries
+# These may require additional system build tools on Python 3.12 environments.
+scikit-surprise>=1.1.4
+implicit>=0.7.2

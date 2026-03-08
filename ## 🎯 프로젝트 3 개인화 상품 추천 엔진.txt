@@ -1,0 +1,183 @@
+## 🎯 프로젝트 3: 개인화 상품 추천 엔진
+
+### 프로젝트 개요
+
+| 항목 | 내용 |
+|------|------|
+| **프로젝트명** | RecSys Lab: 개인화 상품 추천 엔진 |
+| **한줄 요약** | "Collaborative Filtering + Content-Based + Hybrid 3가지 접근법으로 Top-10 추천 Precision@10 = 0.XX 달성" |
+| **데이터** | MovieLens 100K (공식 배포, 10만 평점) |
+| **기술 스택** | Python, Surprise, implicit, scikit-learn, Streamlit |
+| **배포** | Streamlit Cloud |
+| **글로우색상** | purple (AI/ML) |
+
+### 왜 MovieLens인가
+
+- **업계 표준 벤치마크** → 면접관이 결과를 직관적으로 평가 가능
+- 100K 규모로 로컬에서 충분히 실험 가능하면서도 의미 있는 규모
+- 이후 "이 방법론을 이커머스 상품 추천에 적용하면..." 확장 스토리 가능
+
+### Day-by-Day 플랜
+
+#### Day 1: 데이터 탐색 + 전처리 (4~5h)
+
+```
+📋 할 일
+├── MovieLens 100K 다운로드 + 탐색
+│   ├── 평점 분포 (1~5점, 평균, 중앙값)
+│   ├── 유저당 평점 수 분포 (Long-tail 확인)
+│   ├── 아이템당 평점 수 분포
+│   ├── 평점 희소성(Sparsity) 계산
+│   └── 시간에 따른 평점 트렌드
+├── User-Item Matrix 구성
+│   ├── 명시적 피드백(Explicit): 1~5 평점
+│   ├── 암묵적 피드백(Implicit): 평점 유무 → binary
+│   └── Cold-start 유저/아이템 식별
+├── 평가 프레임워크 설계
+│   ├── Train/Test 분할 (시간 기준 or 랜덤)
+│   ├── 평가 지표 정의: RMSE, Precision@K, Recall@K, NDCG@K, MAP
+│   ├── 베이스라인: 전체 평균, 유저 평균, 인기도 기반
+│   └── K 값 설정 (5, 10, 20)
+└── 산출물: 01_eda.ipynb
+```
+
+#### Day 2: Collaborative Filtering (4~5h)
+
+```
+📋 할 일
+├── Memory-Based CF
+│   ├── User-Based CF (코사인 유사도)
+│   ├── Item-Based CF (코사인 유사도)
+│   ├── 유사도 함수 비교 (코사인, 피어슨, 자카드)
+│   └── 이웃 수(K) 튜닝
+├── Model-Based CF
+│   ├── SVD (Singular Value Decomposition) — Surprise 라이브러리
+│   ├── SVD++ (암묵적 피드백 반영)
+│   ├── NMF (Non-negative Matrix Factorization)
+│   ├── Latent Factor 수 튜닝 (10, 20, 50, 100)
+│   └── 정규화 파라미터 튜닝
+├── ALS (Alternating Least Squares)
+│   ├── implicit 라이브러리 사용
+│   ├── Implicit Feedback 버전
+│   └── 하이퍼파라미터 튜닝
+├── CF 방법론 간 비교 (RMSE, Precision@10)
+└── 산출물: 02_collaborative_filtering.ipynb
+```
+
+#### Day 3: Content-Based Filtering (4~5h)
+
+```
+📋 할 일
+├── 아이템 특성 추출
+│   ├── 장르 (One-hot / Multi-hot encoding)
+│   ├── 개봉연도 (decade 구간화)
+│   ├── 태그 데이터 (TF-IDF 벡터화)
+│   └── 아이템 프로필 벡터 생성
+├── 유저 프로필 구성
+│   ├── 유저가 높게 평가한 아이템의 특성 가중 평균
+│   ├── 유저 프로필 vs 아이템 프로필 유사도
+│   └── 코사인 유사도 기반 추천
+├── Content-Based 모델 평가
+│   ├── Precision@K, Recall@K
+│   ├── CF 대비 장단점 분석
+│   └── Cold-start 아이템에 대한 성능 비교
+├── 다양성 분석
+│   ├── 추천 목록 내 장르 다양성 (Intra-list Diversity)
+│   └── Coverage (전체 아이템 중 추천된 비율)
+└── 산출물: 03_content_based.ipynb
+```
+
+#### Day 4: Hybrid + Deep Learning 접근 (4~5h)
+
+```
+📋 할 일
+├── Hybrid 모델
+│   ├── Weighted Hybrid (CF score × α + CB score × β)
+│   ├── Switching Hybrid (Cold-start → CB, 그 외 → CF)
+│   ├── Feature Augmentation (CB feature를 CF 입력으로)
+│   └── α, β 최적화 (Grid Search)
+├── (선택) Neural CF
+│   ├── 간단한 Embedding 기반 모델 (PyTorch/TensorFlow)
+│   ├── User Embedding + Item Embedding → Inner Product
+│   └── 기존 모델과 성능 비교
+├── 최종 모델 비교
+│   ├── 비교표: User-CF / Item-CF / SVD / ALS / CB / Hybrid
+│   ├── 시나리오별 최적 모델 (일반 유저, 신규 유저, 신규 아이템)
+│   └── 다양성 vs 정확도 Trade-off 분석
+└── 산출물: 04_hybrid.ipynb, 05_model_comparison.ipynb
+```
+
+#### Day 5: Cold-Start 해결 + A/B 테스트 설계 (4~5h)
+
+```
+📋 할 일
+├── Cold-Start 문제 심층 분석
+│   ├── 신규 유저: 인기도 기반 → 몇 개 평점 후 CF 전환 시뮬레이션
+│   ├── 신규 아이템: Content-Based → 충분한 평점 후 Hybrid 전환
+│   ├── Cold-start 유저 그룹 vs 기존 유저 그룹 성능 비교
+│   └── "몇 개의 평점이 있어야 CF가 의미 있는가?" 실험
+├── 추천 시스템 A/B 테스트 설계 문서
+│   ├── 가설: "Hybrid 추천 → 기존 인기도 추천 대비 CTR +X% 예상"
+│   ├── 실험 설계: 유저 단위 무작위 배정
+│   ├── Primary Metric: CTR, 평균 평점
+│   ├── Guardrail Metric: 추천 다양성, 커버리지
+│   ├── Sample Size 계산 (Power Analysis)
+│   └── 실험 기간 산정
+├── 비즈니스 임팩트 추정
+│   ├── 오프라인 지표 → 온라인 지표 매핑
+│   └── "NDCG 10% 개선 → CTR 약 X% 증가 예상" 논리
+└── 산출물: 06_cold_start.ipynb, ab_test_design.md
+```
+
+**ExperimentOS 프로젝트와 연결**: "추천 시스템의 A/B 테스트를 ExperimentOS로 자동화할 수 있습니다" → 포트폴리오 시너지.
+
+#### Day 6: Streamlit 앱 개발 (4~5h)
+
+```
+📋 할 일
+├── Streamlit 앱
+│   ├── 사이드바: 유저 선택 / 신규 유저 시뮬레이션
+│   ├── Tab 1: EDA (평점 분포, 희소성, 인기도)
+│   ├── Tab 2: 추천 결과 (모델별 Top-10 비교)
+│   ├── Tab 3: "이 영화를 좋아하면" (아이템 기반 유사 추천)
+│   ├── Tab 4: 모델 비교 대시보드 (정확도, 다양성, 커버리지)
+│   ├── Tab 5: Cold-Start 시뮬레이션
+│   └── Tab 6: A/B 테스트 설계 요약
+├── 배포 + 테스트
+└── 산출물: app.py, pages/
+```
+
+#### Day 7: GitHub + Notion 정리 (4~5h)
+
+```
+📋 할 일
+├── GitHub Repository
+│   ├── README.md (프로젝트 개요, 모델 비교 결과, 실행 방법)
+│   ├── 폴더 구조 정리
+│   └── 핵심 시각화
+├── Notion 포트폴리오
+│   ├── Problem: "유저별 개인화 없는 인기도 기반 추천 → 전환율 정체"
+│   ├── Solution: "CF/CB/Hybrid 3가지 접근 + Cold-start 해결 + A/B 테스트 설계"
+│   ├── Impact: "Hybrid 모델 Precision@10 = 0.XX (인기도 기반 대비 +XX%)"
+│   ├── Learning: "추천 알고리즘 비교, Cold-start 전략, 오프라인→온라인 지표 연결"
+│   ├── Extra-Label: "RECOMMENDATION SYSTEM"
+│   └── Extra: 모델 아키텍처, 평가 지표, A/B 테스트 설계
+└── 산출물: Notion 페이지, GitHub repo
+```
+
+---
+## 🔑 프로젝트 공통 체크리스트
+
+각 프로젝트 완료 시 아래 항목 확인:
+
+```
+□ GitHub README.md (프로젝트 개요, 실행 방법, 결과 요약)
+□ 핵심 시각화 스크린샷 3~4장
+□ requirements.txt / docker-compose.yml
+□ Streamlit 배포 URL 동작 확인
+□ Notion 포트폴리오 (Problem/Solution/Impact/Learning/Extra)
+□ 기술 스택 태그 정확히 기입
+□ 글로우색상 설정
+□ "왜 이 분석을 했는가" 비즈니스 맥락 1문단
+□ "한계점 + 다음 스텝" 솔직한 반성
+```

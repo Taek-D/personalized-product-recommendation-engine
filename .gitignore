@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual env / local installs
+.venv/
+.venv_test/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data artifacts
+/data/raw/ml-100k/
+/data/raw/*.zip
+/data/processed/*
+!/data/processed/.gitkeep
+
+# Output artifacts
+/artifacts/figures/*
+!/artifacts/figures/.gitkeep
+/artifacts/metrics/*
+!/artifacts/metrics/.gitkeep
+
+# Streamlit / local app state
+.streamlit/
+
+# Environment / tooling
+.mamba-env/
+.mamba-root/
+.micromamba-bin/
+.ipython/
+.jupyter/
+.jupyter_data/
+.omc/
+.omx/
+.uv311/
+.venv311/
+
+# IDE
+.idea/
+.vscode/
+*.swp
