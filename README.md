@@ -127,7 +127,9 @@ MovieLens 100K를 선택한 이유:
 
 ## Streamlit Demo
 
-실행:
+**Live Demo**: [https://personalized-appuct-recommendation-engine-ycnwgagbw2q2jrub3s4v.streamlit.app](https://personalized-appuct-recommendation-engine-ycnwgagbw2q2jrub3s4v.streamlit.app/)
+
+로컬 실행:
 
 ```bash
 pip install -r requirements.txt
