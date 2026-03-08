@@ -429,5 +429,16 @@ def main() -> None:
         )
 
 
+    # ── Footer ──
+    st.markdown("---")
+    st.markdown(
+        '<p style="text-align:center; color:#6b8f87; font-size:0.85rem;">'
+        '<a href="https://github.com/Taek-D/personalized-product-recommendation-engine" target="_blank">GitHub</a>'
+        " · MovieLens 100K · Python · scikit-learn · Streamlit"
+        "</p>",
+        unsafe_allow_html=True,
+    )
+
+
 if __name__ == "__main__":
     main()

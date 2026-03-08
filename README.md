@@ -1,5 +1,8 @@
 # RecSys Lab: 개인화 상품 추천 엔진
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://personalized-appuct-recommendation-engine-ycnwgagbw2q2jrub3s4v.streamlit.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/Taek-D/personalized-product-recommendation-engine)
+
 MovieLens 100K 기반으로 Collaborative Filtering, Content-Based Filtering, Hybrid 추천을 비교하고, Top-10 추천 품질과 cold-start 대응 전략, A/B 테스트 설계까지 연결한 포트폴리오 프로젝트입니다.
 
 ## 한 줄 요약
@@ -138,17 +141,12 @@ streamlit run app.py
 
 앱 구성:
 
-- Tab 1: EDA
-- Tab 2: 모델별 Top-10 추천 비교
-- Tab 3: 유사 아이템 추천
-- Tab 4: 모델 비교 대시보드
-- Tab 5: Cold-start 시뮬레이션
-- Tab 6: A/B 테스트 설계 요약
-
-추가 페이지:
-
-- `pages/1_methodology.py`
-- `pages/2_portfolio_summary.py`
+- 📈 핵심 결과: 모델 성능 비교 차트 + 인사이트
+- 🎯 추천 체험: 유저별 모델 추천 결과 비교
+- 🆕 신규 유저 대응: Cold-start 시뮬레이션
+- 🧪 A/B 테스트 설계: Offline → Online 실험 연결
+- 🔍 유사 아이템: Content-Based 유사 추천
+- 📊 데이터 개요: MovieLens 100K EDA
 
 ## Reproducibility
 
@@ -189,9 +187,7 @@ uv pip install --python .uv311\Scripts\python.exe -r requirements.txt -r require
 ```text
 .
 ├── app.py                          # Streamlit 메인 앱 (6개 탭)
-├── pages/
-│   ├── 1_methodology.py            # 방법론 상세 페이지
-│   └── 2_portfolio_summary.py      # 포트폴리오 요약 페이지
+├── pages/                              # (reserved)
 ├── notebooks/
 │   ├── 01_eda.ipynb                # Day 1: 데이터 탐색 + 전처리
 │   ├── 02_collaborative_filtering.ipynb  # Day 2: CF (User/Item-CF, SVD, ALS)
